@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>For Apoorva ❤️</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Great+Vibes&family=Dancing+Script:wght@600&display=swap');
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  height: 100vh;
+  background: radial-gradient(circle at top, #2b1055, #000);
+  overflow: hidden;
+  color: white;
+  font-family: 'Playfair Display', serif;
+}
+
+/* Floating hearts */
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(0) scale(1); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
+
+/* Music button */
+.music-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: white;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+/* Container */
+.container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Card */
+.card {
+  max-width: 420px;
+  width: 100%;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 0 40px rgba(255, 182, 193, 0.2);
+  animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: 46px;
+  margin-bottom: 15px;
+  color: #ffb6c1;
+  letter-spacing: 1px;
+  text-shadow: 0 0 12px rgba(255, 182, 193, 0.6);
+}
+
+
+p {
+  font-size: 16px;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+button {
+  margin-top: 25px;
+  padding: 12px 26px;
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.primary {
+  background: linear-gradient(135deg, #ff758c, #ff7eb3);
+  color: white;
+}
+
+.secondary {
+  background: rgba(255,255,255,0.15);
+  color: white;
+  position: relative;
+}
+
+.primary:hover { transform: scale(1.05); }
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  gap: 15px;
+}
+
+/* Confetti */
+.confetti {
+  position: absolute;
+  width: 8px;
+  height: 14px;
+  background: pink;
+  top: -20px;
+  animation: fall linear infinite;
+}
+
+@keyframes fall {
+  to { transform: translateY(110vh) rotate(360deg); }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" onclick="toggleMusic()">🔊 Music</button>
+
+<script>
+const music = document.getElementById("bgMusic");
+let musicPlaying = false;
+
+function toggleMusic() {
+  if (!musicPlaying) {
+    music.play();
+    musicPlaying = true;
+  } else {
+    music.pause();
+    musicPlaying = false;
+  }
+}
+
+/* Floating hearts */
+function createHeart() {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+  heart.innerHTML = "💖";
+  heart.style.left = Math.random() * 100 + "vw";
+  heart.style.animationDuration = (4 + Math.random() * 4) + "s";
+  document.body.appendChild(heart);
+  setTimeout(() => heart.remove(), 8000);
+}
+setInterval(createHeart, 500);
+</script>
+
+<div class="container">
+  <div class="card" id="card">
+    <h1>Apoorva(Frogi)</h1>
+    <p>
+      Distance makes me miss you more,<br>
+      but it never makes me doubt us.<br><br>
+      You are my home, my heart, my everything, no matter how far apart we are.
+    </p>
+    <button class="primary" onclick="next()">Keep reading 💌</button>
+  </div>
+</div>
+
+<script>
+let step = 0;
+const card = document.getElementById("card");
+
+function next() {
+  if (!musicPlaying) {
+    music.play();
+    musicPlaying = true;
+  }
+
+  step++;
+
+  if (step === 1) {
+    card.innerHTML = `
+      <p>
+        Loving you has been the most beautiful journey of my life and I want 
+        to keep traveling this path with you forever. Thousands of memories already created,
+        and countless more to come.<br><br>
+        Our love story started with such a webpage, so I thought why not make another one, this time not taking from 
+        the internet but straight from my heart.
+      </p>
+      <button class="primary" onclick="next()">There’s something I want to ask…</button>
+    `;
+  }
+
+  if (step === 2) {
+    card.innerHTML = `
+      <h1>Will you be my Valentine? ❤️</h1>
+      <div class="buttons">
+        <button class="primary" onclick="yes()">Yes 💗</button>
+        <button class="secondary" id="noBtn">No 🙃</button>
+      </div>
+    `;
+
+    const noBtn = document.getElementById("noBtn");
+    noBtn.addEventListener("mouseover", moveNo);
+    noBtn.addEventListener("click", moveNo);
+  }
+}
+
+function moveNo() {
+  const btn = document.getElementById("noBtn");
+  const x = Math.random() * 200 - 100;
+  const y = Math.random() * 200 - 100;
+  btn.style.transform = `translate(${x}px, ${y}px)`;
+}
+
+function yes() {
+  card.innerHTML = `
+    <h1>YAYAYAYA!!!!🥳</h1>
+    <p>
+      You just made my heart skip with that baby<br><br>
+      Now you are stuck with me for your entire lifetime. Good luck with that😉<br>
+      Thank you for being 'Mine' baby, I love you so much!❤️
+    </p>
+  `;
+  celebrate();
+}
+
+function celebrate() {
+  for (let i = 0; i < 80; i++) {
+    const confetti = document.createElement("div");
+    confetti.className = "confetti";
+    confetti.style.left = Math.random() * 100 + "vw";
+    confetti.style.background =
+      ["#ffb6c1", "#ff69b4", "#ffc0cb"][Math.floor(Math.random() * 3)];
+    confetti.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(confetti);
+    setTimeout(() => confetti.remove(), 6000);
+  }
+}
+</script>
+
+</body>
+</html>
